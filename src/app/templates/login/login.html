@@ -1,0 +1,25 @@
+<div class="container form">
+    <div class="container inner">
+        <logo></logo>
+    </div>
+    <h1>Welcome back {{$ctrl.managerName}}</h1>
+    <p>Enter Your Email:</p>
+    <input type="email" name="email" placeholder="Enter your email here" ng-model="$ctrl.email" autofocus required/>
+    <p>Enter Your PIN Code:</p>
+    <form class="equal pin">
+        <input type="tel" ng-model="$ctrl.pin.num1" type="tel" maxlength="1" required move-on-max />
+        <input type="tel" ng-model="$ctrl.pin.num2" type="tel" maxlength="1" required move-on-max/>
+        <input type="tel" ng-model="$ctrl.pin.num3" type="tel" maxlength="1" required move-on-max/>
+        <input type="tel" ng-model="$ctrl.pin.num4" type="tel" maxlength="1" move-on-max ng-keyup="$event.keyCode == 13 && $ctrl.login()"
+            required />
+    </form>
+    <br>
+    <error message="{{$ctrl.message}}"></error>
+    <error message="Please Enter Your Email" ng-if="$ctrl.noEmail"></error>
+    <error message="{{$ctrl.pinMessage}}" ng-if="$ctrl.noPin"></error>
+    <br>
+    <button type="submit" ng-disabled="!$ctrl.email || (!$ctrl.pin.num1 && !$ctrl.pin.num2 && !$ctrl.pin.num3 && !$ctrl.pin.num4)"
+        ng-click="$ctrl.login()" ladda="$ctrl.loginLoading">Login</button>
+        <br><br>
+        <button type="submit" ui-sref="login.register">Setup new Account</button>
+</div>

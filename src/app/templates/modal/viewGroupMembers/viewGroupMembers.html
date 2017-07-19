@@ -1,0 +1,33 @@
+<h2>View/Edit Group Members</h2>
+<div class="container form">
+  <div class="formPadding">
+    <!--    <p>Managers:</p>-->
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in vm.users" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="user.name" placeholder="Enter name..."> </td>
+          <td>
+            <input class="clear" ng-model="user.email" placeholder="Enter email..."> </td>
+        </tr>
+        <tr ng-click="vm.addUser()">
+          <td class="clear">
+            <input ng-focus="vm.addUser()" class="clear" placeholder="Enter name...">
+          </td>
+          <td class="clear">
+            <input class="clear" placeholder="Enter email...">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <button ng-click="vm.editGroupMemebers()" ladda="vm.edit" data-style="expand-right">Save Changes</button>
+  </div>
+</div>

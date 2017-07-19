@@ -1,0 +1,24 @@
+<h2>Responses By Question</h2>
+<div class="container form" ng-init="vm.getResponses()">
+  <div class="formPadding" ng-repeat="response in vm.modalData track by $index">
+    <p>{{response.question}}</p>
+    <table style="width:100%">
+      <tbody>
+        <tr>
+          <th class="status-container"></th>
+          <th>Member</th>
+          <th>Response</th>
+        </tr>
+        <tr ng-repeat="res in response.responses">
+          <td class="status-container">
+            <div class="status green-bg" ng-if="res.response.response >= 5 && res.response.type === 'slider'"></div>
+            <div class="status yellow-bg" ng-if="res.response.response >= 4 && res.response.response <5  && res.response.type === 'slider'"></div>
+            <div class="status red-bg" ng-if="res.response.response < 4  && res.response.type === 'slider'"></div>
+          </td>
+          <td ng-class="{'private' : vm.private}">{{res.name}}</td>
+          <td>{{res.response.response}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

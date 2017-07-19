@@ -1,0 +1,239 @@
+<h2>Edit Group</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Edit This Group Name:</p>
+    <input type="text" value="groupName" ng-model="vm.groupData.name" placeholder="Group Name">
+  </div>
+  <div class="formPadding">
+    <p>Edit Group Managers:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Group Access</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="manager in vm.groupData.managers track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="manager.name" placeholder="Enter name...">
+            <!--                    <div contenteditable ng-model="manager.name" div-change placeholder="Enter name..."></div>-->
+          </td>
+          <td>
+            <input class="clear" ng-model="manager.email" placeholder="Enter email...">
+            <!--                    <div contenteditable ng-model="manager.email" div-change placeholder="Enter email..."></div>-->
+          </td>
+          <td>
+            <select class="small-select" name="permissions" ng-model="manager.permission">
+              <option value="view">View only &#9662;</option>
+              <option value="edit">Edit access &#9662;</option>
+              <option value="private">Hide Names &#9662;</option>
+            </select>
+          </td>
+        </tr>
+        <tr ng-click="vm.addManager()">
+          <td class="clear">
+            <input ng-focus="vm.addManager()" class="clear" placeholder="Enter name...">
+          </td>
+          <td class="clear">
+            <input class="clear" placeholder="Enter email...">
+          </td>
+          <td class="clear"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <p>Edit Group Members:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in vm.groupData.users track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="user.name" placeholder="Enter name..."> </td>
+          <td>
+            <input class="clear" ng-model="user.email" placeholder="Enter email..."> </td>
+        </tr>
+        <tr ng-click="vm.addUser()">
+          <td class="clear">
+            <input ng-focus="vm.addUser()" class="clear" placeholder="Enter name...">
+          </td>
+          <td class="clear">
+            <input class="clear" placeholder="Enter email...">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <!--<p>Choose A Schedule:</p>
+    <select ng-model="vm.groupData.scheduleModal" style="font-family: 'Open Sans'" name="schedules" ng-options="schedule.id as schedule.name for schedule in vm.scheduleOptions">
+      <option selected disabled hidden value="">Select Schedule &#9662;</option>
+    </select>-->
+    <h2>Schedules in Group:</h2>
+    <div class="container form">
+      <div class="formPadding">
+        <table style="width:100%">
+          <thead>
+            <tr>
+              <th>Schedule Name</th>
+              <th width="20"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="schedule in vm.secondaryTable track by $index">
+              <td>
+                {{schedule.name}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formPadding">
+        <p>Add a Schedule:</p>
+        <select ng-model="vm.groupData.scheduleModal" style="font-family: 'Open Sans'" name="schedules" ng-options="schedule.id as schedule.name for schedule in vm.scheduleOptions">
+      <option selected disabled hidden value="">Select a Schedule &#9662;</option>
+    </select> <a class="small-select" ng-click="vm.addSchedule()">Add Schedule</a>
+      </div>
+    </div>
+  </div>
+  <div class="formPadding" ng-hide="vm.groupData.scheduleModal == 0">
+    <p>Edit This Group?</p>
+    <button ng-click="vm.updateGroupWithExistingSchedule()" ladda="vm.update" data-style="expand-right">Confirm</button>
+  </div>
+</div>
+<div class="container" ng-show="vm.groupData.scheduleModal == 0">
+  <h2>Create Schedule</h2>
+  <div class="container form">
+    <div class="formPadding">
+      <p>Give This Schedule A Name:</p>
+      <input type="text" value="scheduleName" ng-model="vm.scheduleData.scheduleName" placeholder="Schedule Name">
+    </div>
+    <div class="formPadding">
+      <p>Choose a Schedule Type:</p>
+      <div class="container equal">
+        <div class="container">
+          <h4>Repeat Daily</h4>
+          <input id="1" type="radio" name="gender" value="daily" ng-model="vm.scheduleData.type">
+          <label class="small weekday" for="1"></label>
+        </div>
+        <div class="container">
+          <h4>Repeat Weekly</h4>
+          <input id="2" type="radio" name="gender" value="weekly" ng-model="vm.scheduleData.type">
+          <label class="small weekday" for="2"></label>
+        </div>
+        <div class="container">
+          <h4>Repeat Monthly</h4>
+          <input id="3" type="radio" name="gender" value="monthly" ng-model="vm.scheduleData.type">
+          <label class="small weekday" for="3"></label>
+        </div>
+        <!--<div class="container">
+          <h4>Custom Touchpoints</h4>
+          <input id="4" type="radio" name="gender" value="custom" ng-model="vm.scheduleData.type">
+          <label class="small" for="4"></label>
+        </div>-->
+      </div>
+    </div>
+    <div class="formPadding" ng-if="vm.scheduleData.type != null">
+      <p>Create New Check-in Every:</p>
+      <!--    Daily      -->
+      <div class="container" ng-if="vm.scheduleData.type == 'daily'">
+        <div class="container">
+          <select ng-model="vm.scheduleData.day" style="font-family: 'Open Sans'" name="cars">
+      <option selected disabled hidden value="">Select A Day &#9662;</option>
+      <option value="weekday">Weekdays</option>
+      <option value="every">Every Day</option>
+    </select>
+        </div>
+        <p>Choose A Time:</p>
+        <input type="time" value="12:00" ng-model="vm.scheduleData.time">
+      </div>
+      <!--    Weekly      -->
+      <div class="container" ng-if="vm.scheduleData.type == 'weekly'">
+        <div class="container equal">
+          <div class="container">
+            <input id="5" type="checkbox" name="gender" value="1" ng-model="vm.days.day1">
+            <label class="weekday" for="5">M</label>
+          </div>
+          <div class="container">
+            <input id="6" type="checkbox" name="gender" value="2" ng-model="vm.days.day2">
+            <label class="weekday" for="6">T</label>
+          </div>
+          <div class="container">
+            <input id="7" type="checkbox" name="gender" value="3" ng-model="vm.days.day3">
+            <label class="weekday" for="7">W</label>
+          </div>
+          <div class="container">
+            <input id="8" type="checkbox" name="gender" value="4" ng-model="vm.days.day4">
+            <label class="weekday" for="8">T</label>
+          </div>
+          <div class="container">
+            <input id="9" type="checkbox" name="gender" value="5" ng-model="vm.days.day5">
+            <label class="weekday" for="9">F</label>
+          </div>
+          <div class="container">
+            <input id="10" type="checkbox" name="gender" value="6" ng-model="vm.days.day6">
+            <label class="weekday" for="10">S</label>
+          </div>
+          <div class="container">
+            <input id="11" type="checkbox" name="gender" value="0" ng-model="vm.days.day0">
+            <label class="weekday" for="11">S</label>
+          </div>
+        </div>
+        <p>Choose A Time:</p>
+        <input type="time" value="12:00" ng-model="vm.scheduleData.time">
+      </div>
+      <!--    Monthly      -->
+      <div class="container" ng-if="vm.scheduleData.type == 'monthly'">
+        <p>Choose A Day Of The Month:</p>
+        <input type="number" ng-model="vm.scheduleData.day">
+
+        <p>Choose A Time:</p>
+        <input type="time" value="12:00" ng-model="vm.scheduleData.time">
+      </div>
+
+    </div>
+    <div class="formPadding">
+      <p>Add Questions:</p>
+      <table style="width:100%">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="question in vm.questions track by $index" set-focus="$last">
+            <td>
+              <input class="clear" ng-model="question.question" placeholder="Enter question...">
+            </td>
+            <td>
+              <select class="small-select" name="types" ng-model="question.type">
+                <option value="slider">Slider &#9662;</option>
+                <option value="comment">Comment &#9662;</option>
+              </select>
+            </td>
+          </tr>
+          <tr ng-click="vm.addQuestion()">
+            <td class="clear">
+              <input ng-focus="vm.addQuestion()" class="clear" placeholder="Enter question...">
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="formPadding">
+      <p>Edit Group Details and Schedule?</p>
+      <button ng-click="vm.updateGroupWithNewSchedule()" ladda="vm.update" data-style="expand-right">Confirm</button>
+    </div>
+
+  </div>
+  <error message="{{vm.message}}"></error>
+</div>

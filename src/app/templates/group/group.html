@@ -1,0 +1,126 @@
+<div class="container outer" ng-init="$ctrl.getOneGroupData()">
+    <div class="container" ng-if="$ctrl.noResponseData === true">
+        <h2>{{$ctrl.groupData.groupInfo.name}}</h2>
+        <div style="position: absolute;top: 160px;left: 50%">You don't have any data yet.</div>
+        <div class="container inner" style="height:300px;opacity:0.1;pointer-events:none;">
+            <canvas id="line" class="chart chart-line" chart-data="$ctrl.emptyData" chart-labels="$ctrl.labels" chart-dataset-override="$ctrl.override"
+                chart-options="$ctrl.options" width="100" height="100"></canvas>
+                <!--            <h2 style="position: absolute;top: 160px;right: 510px;color: black">You don't have any data yet.</h2>-->
+        </div>
+    </div>
+    <div class="container" ng-if="$ctrl.noResponseData === false">
+        <h2>{{$ctrl.groupData.groupInfo.name}}<a ng-show="$ctrl.toggleFilter === false" class="create" ng-click="$ctrl.toggleFilter = true">Show Filters ▾</a><a
+                ng-show="$ctrl.toggleFilter == true" class="create" ng-click="$ctrl.toggleFilter = false">Hide Filters ▴</a></h2>
+        <div ng-if="$ctrl.toggleFilter" class="container" style="padding: 20px 20px 20px;margin-top: 20px;background: #445663;color: #fff;border-radius: 3px;max-width: 460px;position: absolute;">
+            <div class="container" style="display:inline-block; padding-bottom:10px;">
+                <h3 style="float: left;line-height: 40px;padding-right:10px; width: 85px;">Graph:</h3>
+                <select selector model="$ctrl.filter.sort" options="$ctrl.filterDefaults.sort" value-attr="value"></select>
+            </div>
+            <div class="container" style="display:inline-block; padding-bottom:10px;">
+                <h3 style="float: left;line-height: 40px;padding-right:10px; width: 85px;">Date Range:</h3>
+                <div class="container">
+                    <!--
+              <select selector model="$ctrl.filter.sort" options="$ctrl.filterDefaults.sort" value-attr="value"></select>
+              <select selector model="$ctrl.filter.sort" options="$ctrl.filterDefaults.sort" value-attr="value"></select>
+    -->
+                    <!--          <input type="text" data-ng-model="session.dateModel" data-date-picker="D/M/YYYY" data-picker-type="date" placeholder="Choose a date" readonly>-->
+                    <datepicker date-format="MMM d, yyyy" date-set="{{$ctrl.filterDefaults.range.start}}">
+                        <input class="selector-input" ng-model="$ctrl.filter.range.start" type="text" />
+                    </datepicker>
+                    <datepicker date-format="MMM d, yyyy" date-set="{{$ctrl.filterDefaults.range.end}}">
+                        <input class="selector-input" ng-model="$ctrl.filter.range.end" type="text" />
+                    </datepicker>
+                </div>
+            </div>
+            <div class="container" style="display:inline-block; padding-bottom:10px;">
+                <h3 style="float: left;line-height: 40px;padding-right:10px; width: 85px;">Members:</h3>
+                <div ng-class="{'private' : $ctrl.private}">
+                    <select selector multi="true" model="$ctrl.filter.members" options="$ctrl.filterDefaults.members" value-attr="value"
+                        placeholder="All group members selected"></select>
+                </div>
+
+            </div>
+            <div class="container" style="text-align:center;">
+                <button ng-click="$ctrl.setGraph()">Set Filters</button>
+            </div>
+        </div>
+        <div class="container inner" style="height:300px;">
+            <canvas id="line" class="chart chart-line" chart-data="$ctrl.data" chart-labels="$ctrl.labels" chart-dataset-override="$ctrl.override"
+                chart-options="$ctrl.options" width="100" height="100"></canvas>
+        </div>
+
+    </div>
+    <div class="container equal">
+        <div class="container">
+            <h2>Check-ins</h2>
+            <div class="container inner">
+                <!--              <button>Sam Was Here</button>-->
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="status-container"></th>
+                            <th>Date</th>
+                            <th>Avg Sentiment</th>
+                            <th>Responses</th>
+                        </tr>
+                        <tr class="hover" ng-if="$ctrl.groupData.checkins.length > 0" ng-repeat="checkin in $ctrl.groupData.checkins">
+                            <td class="status-container">
+                                <div class="status green-bg" ng-if="checkin.sentiment >= 5"></div>
+                                <div class="status yellow-bg" ng-if="checkin.sentiment > 3 && checkin.sentiment < 5"></div>
+                                <div class="status red-bg" ng-if="checkin.sentiment <= 3"></div>
+                                <div class="status blue-bg" ng-if="checkin.responses.length === 0"></div>
+                            </td>
+                            <td>{{checkin.createdAt}}</td>
+                            <td ng-if="checkin.responses.length !== 0">{{checkin.sentiment}}</td>
+                            <td ng-if="checkin.responses.length === 0">No responses yet.</td>
+                            <td><a ng-click="$ctrl.openResponsesModal(checkin.responses,checkin.questions)">
+                                <b ng-if="checkin.responses.length > 0">{{checkin.responses.length}}</b>
+                                <b ng-if="checkin.responses.length === 0">No responses yet.</b>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="$ctrl.groupData.checkins.length === 0">
+                            <td></td>
+                            <td>There are no checkins for this group.</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <h2>Members <a class="create" ng-if="$ctrl.permission === 'edit'" ng-click="$ctrl.addGroupMember()">Add Member</a></h2>
+            <div class="container inner">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="status-container"></th>
+                            <th>Name</th>
+                            <th>Last Sentiment</th>
+                            <th>Engagement</th>
+                            <th></th>
+                        </tr>
+                        <tr class="hover" ng-repeat="user in $ctrl.groupData.users" ng-if="$ctrl.noUserData === false">
+                            <td class="status-container">
+                                <div class="status green-bg" ng-if="user.lastResponse.sentiment >= 5"></div>
+                                <div class="status yellow-bg" ng-if="user.lastResponse.sentiment > 3 && user.lastResponse.sentiment <5"></div>
+                                <div class="status red-bg" ng-if="user.lastResponse.sentiment <= 3"></div>
+                            </td>
+                            <td ng-class="{'private' : $ctrl.private}">{{user.name}}
+                            </td>
+                            <td><a ng-click="$ctrl.viewSentiment(user)"><b>{{user.lastResponse.sentiment}}</b></a></td>
+                            <td ng-if="user.engagement">{{user.engagement}}%</td>
+                            <td ng-if="!user.engagement">Hasn't responded yet</td>
+                            <td class="status-container" ng-if="$ctrl.permission === 'edit'" ng-click="$ctrl.editGroupMember(user)"><i class="material-icons">create</i></td>
+                        </tr>
+                        <tr ng-if="$ctrl.noUserData === true">
+                            <td colspan="3">No users</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,34 @@
+<h2>Add Group Members</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Add Group Members:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in vm.memberInfo.users track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="user.name" placeholder="Enter name..."> </td>
+          <td>
+            <input class="clear" ng-model="user.email" placeholder="Enter email..."> </td>
+        </tr>
+        <tr ng-click="vm.addUser()">
+          <td class="clear">
+            <input ng-focus="vm.addUser()" class="clear" placeholder="Enter name...">
+          </td>
+          <td class="clear">
+            <input class="clear" placeholder="Enter email...">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <p>Add New Group Member?</p>
+    <button ng-click="vm.addGroupMembers()" ladda="vm.add" data-style="expand-right">Confirm</button>
+  </div>
+</div>

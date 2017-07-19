@@ -1,0 +1,48 @@
+<h2>Create Check-in</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Add Questions:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="question in vm.questions track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="question.question" placeholder="Enter question...">
+          </td>
+          <td>
+            <select class="small-select" name="types" ng-model="question.type">
+                <option value="slider">Slider &#9662;</option>
+                <option value="comment">Comment &#9662;</option>
+              </select>
+          </td>
+        </tr>
+        <tr ng-click="vm.addQuestion()">
+          <td class="clear">
+            <input ng-focus="vm.addQuestion()" class="clear" placeholder="Enter question...">
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <div class="container">
+      <p>Choose A Date to Schedule:</p>
+      <input type="date" ng-model="vm.scheduleData.date">
+
+      <p>Choose A Time:</p>
+      <input type="time" value="12:00" ng-model="vm.scheduleData.time">
+    </div>
+
+  </div>
+  <div class="formPadding">
+    <p>Schedule New Check-in with {{vm.questions.length}} Question<span ng-if="vm.questions.length > 1">s</span>?</p>
+    <button ng-click="vm.createCustomCheckin()" ladda="vm.create" data-style="expand-right">Confirm</button>
+  </div>
+
+</div>

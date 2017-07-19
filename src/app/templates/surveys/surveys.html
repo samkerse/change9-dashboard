@@ -1,0 +1,74 @@
+<div class="container">
+
+  <!--Filter content-->
+  <div class="container fit page-filter stack scroll">
+    <div class="filter-item">
+      <div class="module-title">Survey Schedules</div>
+    </div>
+    <div class="filter-item">
+      <input type="radio"><div class="space"></div><i class="material-icons">&#xE241;</i> All
+    </div>
+    <div class="filter-item">
+      <input type="radio"><div class="space"></div><i class="material-icons">&#xE877;</i> Live
+    </div>
+    <!--Tags-->
+    <div class="filter-item">
+      <input type="radio" checked ><div class="space"></div><i class="material-icons">&#xE035;</i> Paused
+    </div>
+    <!--Last Responded-->
+    <div class="filter-item">
+      <input type="radio"><div class="space"></div><i class="material-icons">&#xE254;</i> Drafts
+    </div>
+    <div class="filter-item">
+      <input type="radio"><div class="space"></div><i class="material-icons">&#xE8DF;</i> Custom
+    </div>
+  </div>
+
+  <!--Page content-->
+  <div class="container stack content-container scroll">
+    <div class="container fit content-actions">
+      <div class="container fit action-item">1 matched of 9</div>
+      <div class="container fit action-item">
+        <div class="button white"><i class="material-icons">&#xE0BA;</i> Add to Campaign</div>
+      </div>
+      <div class="container fit action-item">
+        <div class="button blue" ui-sref="app.newSurvey"><i class="material-icons">&#xE8DF;</i> New Survey Schedule</div>
+      </div>
+    </div>
+    <div class="container content-table">
+      <div class="container scroll">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>From</th>
+              <th>Target Tags</th>
+              <th>Recipients</th>
+              <th># Surveys</th>
+              <th>Last Surveyed</th>
+              <th>Last Sentiment</th>
+              <th>Last Response %</th>
+              <th>Last Response</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td class="pre"><input type="checkbox"></td>
+                <td><a ui-sref="app.survey({id: '1'})">Monthly Culture</a> <span class="status-tag">LIVE</span><br><span class="subtext"><i class="material-icons">&#xE878;</i> Weekly on Mon/Wed/Fri at 1pm</span></td>
+                <td><a href="#">Sarah Parker</a></td>
+                <td><a href="#">Employees</a></td>
+                <td><a href="#"><i class="material-icons status">&#xE7EF;</i> 22</a></td>
+                <td><a href="#"><i class="material-icons status">&#xE913;</i> 2</a></td>
+                <!--<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.83 21.36" height="16px"><g style="opacity:0.5"><rect y="17.09" width="3.85" height="4.27" rx="1.93" ry="1.93" style="fill:#4b5e6f"/><rect x="7.49" y="12.82" width="3.85" height="8.55" rx="1.93" ry="1.93" style="fill:#4b5e6f"/><rect x="14.99" y="8.55" width="3.85" height="12.82" rx="1.93" ry="1.93" style="fill:#4b5e6f"/><rect x="22.48" y="4.27" width="3.85" height="17.09" rx="1.93" ry="1.93" style="fill:#4b5e6f"/><rect x="29.98" width="3.85" height="21.36" rx="1.93" ry="1.93" style="fill:#4b5e6f"/></g></svg></td>-->
+                <td><i class="status color-yellow">&#x25CF;</i> <a href="#">4.2</a></td>
+                <td><a href="#">1 day ago</a></td>
+                <td><a href="#">29%</a></td>
+                <td><a href="#">20 hours ago</a></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container outer" ng-init="$ctrl.getAllGroups()">
+  <div class="container">
+    <h2>Groups </h2>
+    <div class="container inner equal wrap">
+
+      <div class="info-card small-card equal" ng-if="$ctrl.noData === false" ng-repeat="group in $ctrl.allGroups" ui-sref="app.group({'id' : group._id})">
+        <div class="card-status green-bg"></div>
+        <div class="card-content">
+          {{group.name}}<br>
+          <h4>{{group.count}} Group Members</h4>
+        </div>
+        <!--        <div class="card-actions"><i class="material-icons">more_vert</i></div>-->
+      </div>
+      <div ng-if="$ctrl.noData === true">There are no groups to view, go to <a ui-sref="app.initiatives">Initiatives</a> page to create a new initiatives and
+        get started.</div>
+    </div>
+  </div>
+</div>

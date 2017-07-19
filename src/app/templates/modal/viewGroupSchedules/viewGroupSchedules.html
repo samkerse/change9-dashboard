@@ -1,0 +1,33 @@
+<h2>Schedule Groups</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Groups in Schedule:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Group Name</th>
+          <th width="20"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="group in vm.secondaryTable track by $index">
+          <td>
+            {{group.name}}
+          </td>
+          <td class="status-container card-actions">
+            <i class="material-icons" ng-click="vm.removeGroup($index)">remove_circle</i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <p>Add a Group:</p>
+    <select ng-model="vm.groupData" style="font-family: 'Open Sans'" name="schedules" ng-options="group.id as group.name for group in vm.groupOptions">
+      <option selected disabled hidden value="">Select a Group &#9662;</option>
+    </select> <a class="small-select" ng-click="vm.addGroup()">Add Group</a>
+  </div>
+  <div class="formPadding" ng-if="vm.changed">
+    <button ng-click="vm.confirmChanges()" ladda="vm.edit" data-style="expand-right">Confirm Changes</button>
+  </div>
+</div>

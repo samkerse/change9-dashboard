@@ -1,0 +1,32 @@
+<h2>View Trends</h2>
+<div class="container form">
+  <div class="formPadding">
+    <!--    <p>Managers:</p>-->
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Trend</th>
+          <th>Action</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="trend in vm.trends">
+          <td>
+            <span>{{trend.trend}}</span>
+          </td>
+          <td>
+            <span ng-if="trend.actionTaken.length !== 0">{{trend.actionTaken}}</span>
+            <span ng-if="trend.actionTaken.length === 0">You haven't reviewed this trend yet.</span>
+          </td>
+          <td>
+            <span>{{trend.createdAt}}</span>
+          </td>
+        </tr>
+        <tr ng-if="vm.trends.length === 0 || !vm.trends">
+          <td>You don't have any trends to review</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

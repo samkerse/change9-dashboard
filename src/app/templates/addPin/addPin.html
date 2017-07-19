@@ -1,0 +1,20 @@
+<div class="container form">
+  <div class="container inner">
+    <logo></logo>
+  </div>
+  <h1>Hey there, update your pin code here.</h1>
+  <p>This is your email:</p>
+  <input type="email" name="email" placeholder="Enter your email here" ng-model="$ctrl.managerInfo.email" autofocus readonly/>
+  <p>Enter Your PIN Code:</p>
+  <form class="equal pin">
+    <input type="tel" ng-model="$ctrl.pin.num1" type="tel" maxlength="1" required move-on-max />
+    <input type="tel" ng-model="$ctrl.pin.num2" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num3" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num4" type="tel" maxlength="1" move-on-max ng-keyup="$event.keyCode == 13 && $ctrl.login()"
+      required />
+  </form>
+  <br>
+  <error message="{{$ctrl.message}}"></error>
+  <br>
+  <button type="submit" ng-click="$ctrl.login()" ladda="$ctrl.registerLoading" data-style="expand-right">Login</button>
+</div>

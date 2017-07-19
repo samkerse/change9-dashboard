@@ -1,0 +1,118 @@
+<div class="container">
+
+  <!--Filter content-->
+  <div class="container fit page-filter stack scroll">
+    <div class="filter-item">
+      <div class="module-title">Stakeholder Parameters</div>
+    </div>
+    <div class="filter-item" ng-repeat="filter in $ctrl.sidebarFilters">
+      <input type="checkbox" ng-model="$ctrl.filter[filter.name].active"><div class="space"></div><a ng-click="$ctrl.filter[filter.name].active = !($ctrl.filter[filter.name].active)"><i class="material-icons">&#xE7FB;</i> {{filter.name}}</a>
+      <div class="filter-item-options" ng-if="$ctrl.filter[filter.name].active === true">
+        <div class="container">
+          <div class="module-title container filter-item">Filter Attribute</div>
+          <div class="container fit" ng-click="$ctrl.filter[filter.name].active = false"><i class="material-icons">&#xE5CD;</i></div>
+        </div>
+        <!-- filter type is text-->
+        <div class="option-item filter-item" ng-if="filter.type === 'text'">
+          <input type="radio" value="contains" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> contains
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'contains'">
+          <div class="additional"><input class="small full" ng-model="$ctrl.filter[filter.name].value" type="{{filter.type}}"></div>
+        </div>
+        <!-- filter type is date-->
+        <div class="option-item filter-item" ng-if="filter.type === 'date'">
+          <input type="radio" value="gt-date" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> more than
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'gt-date'">
+          <div class="additional"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"><div class="space"></div> days ago</div>
+        </div>
+        <div class="option-item filter-item" ng-if="filter.type === 'date'">
+          <input type="radio" value="lt-date" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> less than
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'lt-date'">
+          <div class="additional" ng-init="$ctrl.filter[filter.name].value = 0"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"><div class="space"></div> days ago</div>
+        </div>
+        <div class="option-item filter-item" ng-if="filter.type === 'date'">
+          <input type="radio" value="eq-date" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> exactly
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'eq-date'">
+          <div class="additional ng-init="$ctrl.filter[filter.name].value = 0"" ng-init="$ctrl.filter[filter.name].value = 0"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"><div class="space"></div> days ago</div>
+        </div>
+        <!-- filter type is number-->
+        <div class="option-item filter-item" ng-if="filter.type === 'number'">
+          <input type="radio" value="gt" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> more than
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'gt'">
+          <div class="additional" ng-init="$ctrl.filter[filter.name].value = 0"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"></div>
+        </div>
+        <div class="option-item filter-item" ng-if="filter.type === 'number'">
+          <input type="radio" value="lt" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> less than
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'lt'">
+          <div class="additional" ng-init="$ctrl.filter[filter.name].value = 0"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"></div>
+        </div>
+        <div class="option-item filter-item" ng-if="filter.type === 'number'">
+          <input type="radio" value="eq" name="{{filter.name}}" ng-model="$ctrl.filter[filter.name].type"><div class="space"></div> exactly
+        </div>
+        <div class="option-item filter-item" ng-if="$ctrl.filter[filter.name].type == 'eq'">
+          <div class="additional" ng-init="$ctrl.filter[filter.name].value = 0"><input class="small" ng-model="$ctrl.filter[filter.name].value" type="number"></div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-item"><div class="button blue center" ng-click="$ctrl.setFilter()">Set Filters</div></div>
+  </div>
+
+  <!--Page content-->
+  <div class="container stack content-container scroll">
+    <div class="container fit content-actions">
+      <div class="container fit action-item">{{$ctrl.filteredUsers.length}} matched of {{$ctrl.users.length}}</div>
+      <div class="container fit action-item">
+        <div class="button white"><i class="material-icons">&#xE8A3;</i> Bulk Tag</div>
+      </div>
+      <div class="container fit action-item">
+        <div class="button white"><i class="material-icons">&#xE0D8;</i> Bulk Edit</div>
+      </div>
+      <div class="container fit action-item">
+        <div class="button white"><i class="material-icons">&#xE0D8;</i> Bulk Message</div>
+      </div>
+      <div class="container fit action-item">
+        <div class="button white"><i class="material-icons">&#xE2C3;</i> Export</div>
+      </div>
+      <div class="container fit action-item">
+        <div class="button blue"><i class="material-icons">&#xE7FD;</i> Add New Stakeholder</div>
+      </div>
+    </div>
+    <div class="container content-table" ng-init="$ctrl.setFilter()">
+      <div class="container scroll">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th ng-click="$ctrl.sortTable('name')"><a>Name</a> <i class="material-icons" ng-if="$ctrl.sort == 'name'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('surveys')"><a>Surveys</a> <i class="material-icons" ng-if="$ctrl.sort == 'surveys'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('sentiment')"><a>Sentiment</a> <i class="material-icons" ng-if="$ctrl.sort == 'sentiment'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('lastResponded')"><a>Last Responded</a> <i class="material-icons" ng-if="$ctrl.sort == 'lastResponded'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('responseRate')"><a>Response %</a> <i class="material-icons" ng-if="$ctrl.sort == 'responseRate'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('firstResponded')"><a>First Responded</a> <i class="material-icons" ng-if="$ctrl.sort == 'firstResponded'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('tags')"><a>Tags</a> <i class="material-icons" ng-if="$ctrl.sort == 'tags'">{{$ctrl.sortIcon}}</i></th>
+              <th ng-click="$ctrl.sortTable('city')"><a>City</a> <i class="material-icons" ng-if="$ctrl.sort == 'city'">{{$ctrl.sortIcon}}</i></th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="user in $ctrl.filteredUsers | orderBy : $ctrl.sort : $ctrl.sortOrder">
+                <td class="pre"><input type="checkbox"><span ng-class="$ctrl.setColour(user.name)">{{$ctrl.getInitials(user.name)}}</span></td>
+                <td><a ui-sref="app.stakeholder({'id':'1'})">{{user.name}}</a></td>
+                <td><a href="#"><i class="material-icons status">&#xE157;</i> {{user.surveys}}</a></td>
+                <td><i class="status" ng-class="{'color-green': user.sentiment >= 5, 'color-yellow': user.sentiment < 5 && user.sentiment > 3, 'color-red': user.sentiment <= 3}">&#x25CF;</i> <a href="#">{{user.sentiment}}</a></td>
+                <td><a href="#">{{user.lastResponded}}</a></td>
+                <td><a href="#">{{user.responseRate}}</a></td>
+                <td><a href="#">{{user.firstResponded}}</a></td>
+                <td><a href="#">{{user.processedTags}}</a></td>
+                <td><a href="#">{{user.city}}</a></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

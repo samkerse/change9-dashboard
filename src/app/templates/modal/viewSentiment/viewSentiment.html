@@ -1,0 +1,24 @@
+<h2><span ng-class="{'private' : vm.private}">{{vm.lastResponse.name}}</span>'s last response</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Responded on {{vm.lastResponse.createdAt}}:</p>
+    <table style="width:100%">
+      <tbody>
+        <tr>
+          <th class="status-container"></th>
+          <th>Question</th>
+          <th>Response</th>
+        </tr>
+        <tr ng-repeat="sentimentData in vm.sentimentData.responses">
+          <td class="status-container">
+            <div class="status green-bg" ng-if="sentimentData.type === 'slider' && sentimentData.response >= 5"></div>
+            <div class="status yellow-bg" ng-if="sentimentData.type === 'slider' && sentimentData.response >= 4 && sentimentData < 5"></div>
+            <div class="status red-bg" ng-if="sentimentData.type === 'slider' && sentimentData.response < 4"></div>
+          </td>
+          <td>{{sentimentData.question}}</td>
+          <td>{{sentimentData.response}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

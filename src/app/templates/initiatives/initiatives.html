@@ -1,0 +1,20 @@
+<div class="container outer" ng-init="$ctrl.getAllInitiatives()">
+  <div class="container">
+    <h2>Initiatives <a class="create" ng-click="$ctrl.createInitiative()">Create Inititiative</a></h2>
+    </h2>
+    <div class="container inner equal wrap">
+      <div class="info-card small-card equal" ng-if="$ctrl.noData === false" ng-repeat="i in $ctrl.allInitiatives" ui-sref="app.initiative({id: i._id})">
+        <div class="card-status green-bg"></div>
+        <div class="card-content">{{i.name}}
+          <br>
+          <h4>{{i.groups.length}} Groups</h4>
+        </div>
+        <!--        <div class="card-actions"><i class="material-icons">more_vert</i></div>-->
+      </div>
+      <error message="{{$ctrl.message}}"></error>
+      <div ng-if="$ctrl.noData === true">
+        <div>There are no initiatives to view.<a class="create" ng-click="$ctrl.createInitiative()">Create Inititiative</a></div>
+      </div>
+    </div>
+  </div>
+</div>

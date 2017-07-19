@@ -1,0 +1,26 @@
+<h2>Edit Group Member : {{vm.user.name}}</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Edit Group Member:</p>
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in vm.user track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="user.name" placeholder="Enter name..."> </td>
+          <td>
+            <input class="clear" ng-model="user.email" placeholder="Enter email..."> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <p>Edit Group Member?</p>
+    <button ng-click="vm.saveGroupMember()" ladda="vm.update" data-style="expand-right">Confirm</button>
+  </div>
+</div>

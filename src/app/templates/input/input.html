@@ -1,0 +1,27 @@
+<div class="container form">
+  <div class="container inner">
+    <logo></logo>
+  </div>
+  <h1>Welcome back {{$ctrl.managerName}}</h1>
+  <p>Enter Your Email:</p>
+  <input type="email" name="email" placeholder="Enter your email here" ng-model="$ctrl.email" autofocus />
+  <p>Enter Your PIN Code:</p>
+  <form class="equal pin">
+    <input type="tel" ng-model="$ctrl.pin.num1" type="tel" maxlength="1" required move-on-max />
+    <input type="tel" ng-model="$ctrl.pin.num2" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num3" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num4" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num5" type="tel" maxlength="1" required move-on-max/>
+    <input type="tel" ng-model="$ctrl.pin.num6" type="tel" maxlength="1" move-on-max ng-keyup="$event.keyCode == 13 && $ctrl.login()"
+            required />
+<!--    <input type="text" ng-model="$ctrl.password" />-->
+  </form>
+  <br>
+  <error message="{{$ctrl.message}}"></error>
+  <error message="Please Enter Your Email" ng-if="$ctrl.noEmail"></error>
+  <error message="{{$ctrl.pinMessage}}" ng-if="$ctrl.noPin"></error>
+  <br>
+  <button type="submit" ng-click="$ctrl.login()" ladda="$ctrl.loginLoading">Login</button>
+  <br><br>
+  <button type="submit" ui-sref="login.register">Setup new Account</button>
+</div>

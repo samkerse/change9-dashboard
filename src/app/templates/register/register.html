@@ -1,0 +1,59 @@
+<!--
+<main style="width:70%;margin:auto;height:500px;">
+    <logo></logo>
+    <section style="text-align:center;">
+        <header>
+            <h1>Let's get you set up</h1>
+            <h3>The next steps are for managers, and will take around a minute.</h3>
+        </header>
+        <input type="text" name="org" placeholder="Enter your organisation name" ng-model="$ctrl.managerData.organisation" />
+        <section>
+            <input type="text" name="name" placeholder="Enter your name here" ng-model="$ctrl.managerData.name" />
+            <input type="email" name="email" placeholder="Enter your email here" ng-model="$ctrl.managerData.email" />
+        </section>
+        <form>
+            <input class="login-pin" ng-model="$ctrl.pin.num1" type="tel" maxlength="1" move-on-max required/>
+            <input class="login-pin" ng-model="$ctrl.pin.num2" type="tel" maxlength="1" move-on-max required/>
+            <input class="login-pin" ng-model="$ctrl.pin.num3" type="tel" maxlength="1" move-on-max required/>
+            <input class="login-pin" ng-model="$ctrl.pin.num4" type="tel" maxlength="1" move-on-max ng-enter="$ctrl.register()" required
+            />
+        </form>
+        <error message="{{$ctrl.message}}"></error>
+        <button type="submit" ng-click="$ctrl.register()" ladda="$ctrl.registerLoading">Get Started</button>
+    </section>
+</main>
+-->
+
+<div class="container form">
+    <div class="container inner">
+        <logo></logo>
+    </div>
+    <h1>Let's get you set up</h1>
+    <br>
+    <h3>The next steps are for managers, and will take around a minute.</h3>
+    <br><br>
+    <p>Enter Your Organisation Name:</p>
+    <input type="text" name="org" placeholder="Enter your organisation name" ng-model="$ctrl.managerData.organisation" />
+    <!--    <input type="email" name="email" placeholder="Enter your email here" ng-model="$ctrl.email" />-->
+
+    <p>Enter Your Details:</p>
+    <input type="text" name="name" placeholder="Enter your name here" ng-model="$ctrl.managerData.name" />
+    <input type="email" name="email" style="margin-top:20px" placeholder="Enter your email here" ng-model="$ctrl.managerData.email"
+    />
+    <p>Create a PIN Code:</p>
+    <form class="equal pin">
+        <input type="tel" ng-model="$ctrl.pin.num1" type="tel" maxlength="1" required move-on-max />
+        <input type="tel" ng-model="$ctrl.pin.num2" type="tel" maxlength="1" required move-on-max/>
+        <input type="tel" ng-model="$ctrl.pin.num3" type="tel" maxlength="1" required move-on-max/>
+        <input type="tel" ng-model="$ctrl.pin.num4" type="tel" maxlength="1" move-on-max ng-keyup="$event.keyCode == 13 && $ctrl.register()"
+            required />
+    </form>
+    <br>
+    <error message="{{$ctrl.message}}"></error>
+    <error message="Please Enter Your Email" ng-if="$ctrl.noEmail"></error>
+    <error message="You Missed Digits On Your Pin" ng-if="$ctrl.noPin"></error>
+    <br>
+    <button type="submit" ng-click="$ctrl.register()" ladda="$ctrl.registerLoading" ng-disabled="!$ctrl.managerData.organisation || !$ctrl.managerData.name || !$ctrl.managerData.email || (!$ctrl.pin.num1 && !$ctrl.pin.num2 && !$ctrl.pin.num3 && !$ctrl.pin.num4 )">Get Started</button>
+    <br><br>
+    <a ui-sref="login.default" class="create">Or back to login</a>
+</div>

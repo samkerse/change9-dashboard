@@ -1,0 +1,39 @@
+<h2>Create Initiative</h2>
+<div class="container form">
+  <div class="formPadding">
+    <p>Give This Initiative A Name:</p>
+    <input type="text" value="groupName" ng-model="vm.initiativeData.name" placeholder="Initiative Name">
+  </div>
+  <div class="formPadding">
+    <p>Add Initiative Managers:
+      <span ng-show="vm.show === false" ng-click="vm.show = true">&#9662;</span>
+      <span ng-show="vm.show === true" ng-click="vm.show = false">&#9652;</span></p>
+    <table style="width:100%" ng-if="vm.show === true">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="manager in vm.initiativeData.managers track by $index" set-focus="$last">
+          <td>
+            <input class="clear" ng-model="manager.name" placeholder="Enter name..."> </td>
+          <td>
+            <input class="clear" ng-model="manager.email" placeholder="Enter email..."> </td>
+        </tr>
+        <tr ng-click="vm.addInitiativeManager()">
+          <td class="clear">
+            <input ng-focus="vm.addInitiativeManager()" class="clear" placeholder="Enter name...">
+          </td>
+          <td class="clear">
+            <input class="clear" placeholder="Enter email...">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formPadding">
+    <p>Create New Initiative<span ng-if="vm.show === true"> And Add Managers</span>?</p>
+    <button ng-click="vm.createInitiative()" ladda="vm.create" data-style="expand-right" ng-disabled="!vm.initiativeData.name || !vm.initiativeData.managers ">Confirm</button>
+  </div>
